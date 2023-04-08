@@ -91,36 +91,19 @@ class Heap
         a[0] = 0;
         dist[0] = Integer.MIN_VALUE;
 
-        //vertex using dist moved up heap
         while(dist[v] < dist[a[k/2]]){
 
 
-            a[k] = a[k/2]; //parent vertex is assigned pos of child vertex
+            a[k] = a[k/2];
 
-            hPos[a[k]] = k;//hpos modified for siftup
+            hPos[a[k]] = k;
 
-            k = k/2;// index of child assigned last parent to continue siftup
+            k = k/2;
         }
 
-        a[k] = v;//resting pos of vertex assigned to heap
+        a[k] = v;
 
-        hPos[v] = k;//index of resting pos of vertex updated in hpos
-
-        //display hpos array
-       /* System.out.println("\nThe following is the hpos array after siftup: \n");
-
-        for(int i = 0; i < MAX; i ++){
-
-            System.out.println("%d", hPos[i]);
-        }
-
-        System.out.println("\n Following is heap array after siftup: \n");
-
-        for (int i = 0; i < MAX; i ++ ){
-
-            System.out.println("%d" , a[i]);
-
-        }*/
+        hPos[v] = k;
     }
 
 
@@ -138,25 +121,29 @@ class Heap
 
             j = 2 * k;
 
-            if(j < N && dist[a[j]] > dist[a[j + 1]]) ++j; //if node is > left increment j child
+            if(j < N && dist[a[j]] > dist[a[j + 1]]){
+                j++;
+            }
 
-            if(dist[v] <= dist[a[j]]) break;//if sizeof parent vertex is less than child stop.
+            if(dist[v] <= dist[a[j]]){
+                break;
+            }
 
-            a[k] = a[j];//if parent is greater than child then child assigned parent pos
+            a[k] = a[j];
 
-            hPos[a[k]] = k;//update new pos of last child
+            hPos[a[k]] = k;
 
-            k = j;//assign vertex new pos
+            k = j;
         }
-        a[k] = v;//assign rest place of vertex to heap
-        hPos[v] = k;//update pos of the vertex in hpos array
+        a[k] = v;
+        hPos[v] = k;
     }
 
 
     public void insert( int x) 
     {
-        a[++N] = x;//assign new vertex to end of heap
-        siftUp( N);//pass index at end of heap to siftup
+        a[++N] = x;
+        siftUp( N);
     }
 
 
@@ -166,10 +153,10 @@ class Heap
         hPos[v] = 0; // v is no longer in heap
         a[N+1] = 0;  // put null node into empty spot
 
-        a[1] = a[N--];//last node of heap moved to top
-        siftDown(1);//pass index at top to siftdown
+        a[1] = a[N--];
+        siftDown(1);
 
-        return v;//return vertex at top of heap
+        return v;
     }
 
 }
