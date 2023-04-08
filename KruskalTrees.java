@@ -55,15 +55,18 @@ class Heap
         for(i = N/2; i > 0; --i){
             siftDown(i);
         }
+        print();
     }
 
 
-
-    public boolean isEmpty() 
-    {
-        return N == 0;
+    public void print(){
+        int i;
+        System.out.print("Heap: ");
+        for(i=1; i<=N; ++i){
+            System.out.print(edge[h[i]].wgt + " ");
+        }
+        System.out.println();
     }
-
 
     private void siftDown( int k) {
         int e, j;
@@ -83,6 +86,7 @@ class Heap
             
         }
         h[k] = e;
+        print();
     }
 
 
@@ -165,6 +169,7 @@ class UnionFindSets
     
     }
     
+
     private char toChar(int u)
     {  
         return (char)(u + 64);
@@ -249,7 +254,7 @@ public Edge[] MST_Kruskal()
         // find sets containing the two endpoints
         uSet = partition.findSet(e.u);
         vSet = partition.findSet(e.v);
-        // if the two endpoints are in different sets
+        //  if the two endpoints are indifferent sets
         if(uSet != vSet) {
             // add edge to MST
             mst[i++] = e;
