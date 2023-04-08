@@ -139,6 +139,14 @@ class Heap
         hPos[v] = k;
     }
 
+    public void printHeap() 
+    {
+        System.out.print("Heap: ");
+        for (int i = 1; i <= N; i++) {
+            System.out.print(a[i] + " ");
+        }
+        System.out.println();
+    }
 
     public void insert( int x) 
     {
@@ -280,6 +288,8 @@ class Graph {
         hPos = new int[V + 1];
         parent = new int[V + 1];
 
+        System.out.println("MST Prim's Algorithm starting at vertex " + toChar(s) + ":");
+
         for (v = 0; v <= V; v++) {
             dist[v] = Integer.MAX_VALUE;
             parent[v] = 0;
@@ -309,10 +319,15 @@ class Graph {
                         h.siftUp(hPos[u]);
                     }
                 }
-
+                System.out.println();
+                h.printHeap();
+                System.out.print("Dist: ");
+                printArray(dist);
+                System.out.print("Parent: ");
+                printArray(parent);
+                System.out.println();
             }
-            printArray(dist);
-            printArray(parent);
+            
         }
 
         for (v = 0; v <= V; v++) {
@@ -321,6 +336,7 @@ class Graph {
         System.out.print("\n\nWeight of MST = " + wgt_sum + "\n");
 
         mst = parent;
+        showMST();
     }
 
     public void showMST() {
@@ -339,6 +355,8 @@ class Graph {
         hPos = new int[V + 1];
         parent = new int[V + 1];
 
+        System.out.println("SPT Dijkstra's Algorithm starting at vertex " + toChar(s) + ":");
+
         for (v = 1; v <= V; v++) {
             dist[v] = Integer.MAX_VALUE;
             parent[v] = 0;
@@ -355,7 +373,6 @@ class Graph {
         while (!h.isEmpty()){
             for(t = adj[v]; t != z; t = t.next){
                 u = t.vert;
-                System.out.println("u = " + u + " v = " + v);
                 wgt = t.wgt;
 
                 if (dist[u] > dist[v] + wgt){
@@ -366,14 +383,19 @@ class Graph {
                     if (hPos[u] == 0){
                         h.insert(u);
                     } else {
-                        System.out.println("test sift up U: " + u + " hPos[u]: " + hPos[u]);
-
                         h.siftUp(hPos[u]);
                     }
                     
                 }
             }
             v = h.remove();
+            System.out.println();
+            h.printHeap();
+            System.out.print("Dist: ");
+            printArray(dist);
+            System.out.print("Parent: ");
+            printArray(parent);
+            System.out.println();
         }
         
         for (v = 0; v <= V; v++) {
@@ -381,11 +403,18 @@ class Graph {
 
         }
         spt = parent;
+        showSPT();
     }
-
+    public void showSPT() {
+        System.out.print("\n\nShortest Path tree parent array is:\n");
+        for (int v = 1; v <= V; ++v)
+            System.out.println(toChar(v) + " -> " + toChar(spt[v]));
+        System.out.println("");
+    }
     public void DF(int s) {
         int v;
         visited = new int[V + 1];
+        System.out.println("Depth First Traversal starting at vertex " + toChar(s) + ":");
         for (v = 1; v <= V; ++v)
             visited[v] = 0;
 
@@ -409,6 +438,8 @@ class Graph {
         Node t;
         GraphQueue q = new GraphQueue(V);
         visited = new int[V + 1];
+
+        System.out.println("Breadth First Traversal starting at vertex " + toChar(v) + ":");
 
         //Sets all the vertices to not visited
         for (u = 1; u <= V; ++u) {
@@ -445,11 +476,11 @@ public class GraphLists {
 
         g.display();
 
-        //g.DF(s);
+        g.DF(s);
         System.out.println();
-        //g.breadthFirst(s);
+        g.breadthFirst(s);
         System.out.println();
-        //g.MST_Prim(s);
+        g.MST_Prim(s);
         g.SPT_Dijkstra(s);
     }
 }

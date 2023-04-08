@@ -55,11 +55,10 @@ class Heap
         for(i = N/2; i > 0; --i){
             siftDown(i);
         }
-        print();
     }
 
 
-    public void print(){
+    public void printHeap(){
         int i;
         System.out.print("Heap: ");
         for(i=1; i<=N; ++i){
@@ -86,7 +85,6 @@ class Heap
             
         }
         h[k] = e;
-        print();
     }
 
 
@@ -134,6 +132,8 @@ class UnionFindSets
     {
         treeParent[vertex] = vertex;
     }
+
+
 
     public void showTrees()
     {
@@ -239,29 +239,36 @@ public Edge[] MST_Kruskal()
     // priority queue for indices of array of edges
     Heap h = new Heap(E, edge);
 
+    System.out.println("Kruskal's MST algorithm Begin");
+
     // create partition of singleton sets for the vertices
     partition = new UnionFindSets(V);
     for(i=1; i<=V; ++i){
         partition.makeSet(i);
     }
 
-    // repeat until MST has V-1 edges
+
     i = 0;
     while(i < V-1) {
-        // remove edge with minimum weight from heap
+
         ei = h.remove();
         e = edge[ei];
-        // find sets containing the two endpoints
+
         uSet = partition.findSet(e.u);
         vSet = partition.findSet(e.v);
-        //  if the two endpoints are indifferent sets
+
         if(uSet != vSet) {
-            // add edge to MST
+
             mst[i++] = e;
             wgt_sum += e.wgt;
-            // merge the two sets
+
             partition.union(uSet, vSet);
         }
+        System.out.println("Trees: ");
+        partition.showTrees();
+        System.out.println("Sets: ");
+        partition.showSets();
+        System.out.println();
     }
     
     System.out.println("Weight of MST = " + wgt_sum);
